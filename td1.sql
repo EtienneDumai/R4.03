@@ -27,14 +27,14 @@ UPDATE EMP e SET e.SALAIRE = 20000 AND e.Coordonnee.Ville='Anglet' AND e.Coordon
 --QUestion 4 : 
 UPDATE EMP e SET e.salaire = &nv_salaire WHERE NUMEMP = &numemp;
 -- QUESTION 5 :
-SELECT DISTINCT e.coordonnees.Ville FROM EMP e;
+SELECT DISTINCT e.coordonnee.Ville FROM EMP e;
 --Question 6 :
-SELECT e.coordonnees.Ville, e.NomComplet FROM EMP e;
+SELECT e.coordonnee.Ville, e.NomComplet FROM EMP e;
 -- QUESTION 7 :
-SELECT COUNT(DISTINCT e.coordonnees.Ville) FROM EMP e;
+SELECT COUNT(DISTINCT e.coordonnee.Ville) FROM EMP e;
 -- QUESTION 8 :
-SELECT e.NomComplet FROM EMP e WHERE e.coordonnees.Ville = 'Anglet';
+SELECT e.NomComplet FROM EMP e WHERE e.coordonnee.Ville = 'Anglet';
 -- QUESTION 9 :
-SELECT e.NomComplet FROM EMP e WHERE e.coordonnees.Telephone IS NOT NULL;
+SELECT e.NomComplet FROM EMP e WHERE e.coordonnee.Telephone IS NOT NULL;
 -- QUESTION 10 :
-UPDATE EMP e SET e.coordonnees.Telephone = '0478556585', e.coordonnees.Fax='0809090909' WHERE e.NomComplet = 'XAVIER Richard';
+UPDATE EMP e SET e.coordonnee.Telephone = '0478556585', e.coordonnee.Fax='0809090909' WHERE e.NomComplet = 'XAVIER Richard';
