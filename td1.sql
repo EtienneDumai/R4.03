@@ -21,5 +21,20 @@ INSERT INTO EMP VALUES (17, 'AUBERT Louis',2000, coordonnees('Lyon','69100','047
 INSERT INTO EMP VALUES (18, 'MAURI John', 1500, coordonnees('Anglet','64200',NULL,NULL));
 
 -- QUESTION 3 :
-UPDATE EMP SET SALAIRE = 30000 AND Coordonnee.Ville='Anglet' AND Coordonnee.CP='64200' WHERE NUMPEMP=14;
-UPDATE EMP SET SALAIRE = 20000 AND Coordonnee.Ville='Anglet' AND Coordonnee.CP='64200' AND WHERE NUMPEMP=15;
+UPDATE EMP e SET e.SALAIRE = 30000 AND e.Coordonnee.Ville='Anglet' AND e.Coordonnee.CP='64200' WHERE NUMEMP=14;
+UPDATE EMP e SET e.SALAIRE = 20000 AND e.Coordonnee.Ville='Anglet' AND e.Coordonnee.CP='64200' AND WHERE NUMEMP=15;
+
+--QUestion 4 : 
+UPDATE EMP e SET e.salaire = &nv_salaire WHERE NUMEMP = &numemp;
+-- QUESTION 5 :
+SELECT DISTINCT e.coordonnees.Ville FROM EMP e;
+--Question 6 :
+SELECT e.coordonnees.Ville, e.NomComplet FROM EMP e;
+-- QUESTION 7 :
+SELECT COUNT(DISTINCT e.coordonnees.Ville) FROM EMP e;
+-- QUESTION 8 :
+SELECT e.NomComplet FROM EMP e WHERE e.coordonnees.Ville = 'Anglet';
+-- QUESTION 9 :
+SELECT e.NomComplet FROM EMP e WHERE e.coordonnees.Telephone IS NOT NULL;
+-- QUESTION 10 :
+UPDATE EMP e SET e.coordonnees.Telephone = '0478556585', e.coordonnees.Fax='0809090909' WHERE e.NomComplet = 'XAVIER Richard';
