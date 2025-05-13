@@ -1,0 +1,12 @@
+CREATE OR REPLACE TYPE coordonnees AS OBJECT(
+    Ville VARCHAR2(50),
+    CP VARCHAR2(10),
+    Telephone VARCHAR2(20),
+    Fax VARCHAR2(20),
+);
+CREATE OR REPLACE TABLE EMP (
+    NUMEMP INTEGER PRIMARY KEY,
+    NomComplet VARCHAR2(100),
+    SALAIRE INTEGER,
+    Coordonnee coordonnees,
+);
