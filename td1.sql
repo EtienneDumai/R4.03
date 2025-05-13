@@ -1,3 +1,4 @@
+-- QUESTION 1 :
 CREATE TYPE coordonnees AS OBJECT(
     Ville VARCHAR2(50),
     CP VARCHAR2(10),
@@ -10,7 +11,7 @@ CREATE TABLE EMP (
     SALAIRE INTEGER,
     Coordonnee coordonnees
 );
-
+-- QUESTION 2 :
 INSERT INTO EMP VALUES (14, 'XAVIER Richard',NULL , 
     coordonnees('Lyon', '69000', '0472546585',NULL));
 INSERT INTO EMP VALUES (15, 'NICOLLE Chris',NULL , coordonnees('Paris', '75000',NULL ,NULL ));
@@ -18,3 +19,7 @@ INSERT INTO EMP VALUES (16, 'CRINIERE Belle',NULL,
     coordonnees('Grenoble', '38001',NULL ,NULL ));
 INSERT INTO EMP VALUES (17, 'AUBERT Louis',2000, coordonnees('Lyon','69100','0478556585',NULL));
 INSERT INTO EMP VALUES (18, 'MAURI John', 1500, coordonnees('Anglet','64200',NULL,NULL));
+
+-- QUESTION 3 :
+UPDATE EMP SET SALAIRE = 30000 AND Coordonnee.Ville='Anglet' AND Coordonnee.CP='64200' WHERE NUMPEMP=14;
+UPDATE EMP SET SALAIRE = 20000 AND Coordonnee.Ville='Anglet' AND Coordonnee.CP='64200' AND WHERE NUMPEMP=15;
