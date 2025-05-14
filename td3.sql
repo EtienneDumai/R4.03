@@ -153,7 +153,7 @@ CREATE OR REPLACE TYPE t_Rect2 AS OBJECT (
     min B_Point,
     max B_Point,
     MEMBER PROCEDURE inserer2Points(newPoint IN B_Point, newPoint2 IN B_Point),
-    MEMEBER FUNCTION SURFACE RETURN NUMBER
+    MEMBER FUNCTION SURFACE RETURN NUMBER
 );
 CREATE OR REPLACE TYPE BODY t_Rect2 AS 
     MEMBER PROCEDURE inserer2Points(newPoint IN B_Point, newPoint2 IN B_Point) IS
@@ -163,7 +163,7 @@ CREATE OR REPLACE TYPE BODY t_Rect2 AS
     END;
     MEMBER FUNCTION SURFACE RETURN NUMBER IS
     BEGIN
-        RETURN (self.max.x - self.min.x) * (self.max.y - self.min.y);
+        RETURN ABS((self.max.x - self.min.x) * (self.max.y - self.min.y));
     END;
 END;
 
