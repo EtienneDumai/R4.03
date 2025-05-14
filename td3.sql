@@ -152,13 +152,18 @@ HAVING nb_lien > 1;
 CREATE OR REPLACE TYPE t_Rect2 AS OBJECT (
     min B_Point,
     max B_Point,
-    MEMBER PROCEDURE inserer2Points(newPoint IN B_Point, newPoint2 IN B_Point)
+    MEMBER PROCEDURE inserer2Points(newPoint IN B_Point, newPoint2 IN B_Point),
+    MEMEBER FUNCTION SURFACE RETURN NUMBER
 );
 CREATE OR REPLACE TYPE BODY t_Rect2 AS 
     MEMBER PROCEDURE inserer2Points(newPoint IN B_Point, newPoint2 IN B_Point) IS
     BEGIN
         self.min := newPoint;
         self.max := newPoint2;
+    END;
+    MEMBER FUNCTION SURFACE RETURN NUMBER IS
+    BEGIN
+        RETURN (self.max.x - self.min.x) * (self.max.y - self.min.y);
     END;
 END;
 
@@ -173,11 +178,14 @@ DECLARE
     v_min B_Point := B_Point(1, 3);
     v_max B_Point := B_Point(2, 4);
     Empv EXCEPTION;
+    surface NUMBER;
 BEGIN
     v_rect := t_Rect2(NULL, NULL);
     v_rect.inserer2Points(v_min, v_max);
     DBMS_OUTPUT.PUT_LINE('RECTANGLE INSERER : ' || v_rect.min.x || ' ' || v_rect.min.y || ' ' || v_rect.max.x || ' ' || v_rect.max.y);
     INSERT INTO VILLE2 VALUES (1, 'BAYONNE', v_rect);
+    surface := v_rect.surface();
+    DBMS_OUTPUT.PUT_LINE('SURFACE : ' || surface);
     Commit;
 EXCEPTION 
     WHEN Empv THEN
