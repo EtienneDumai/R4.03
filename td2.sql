@@ -93,3 +93,30 @@ INSERT INTO Tweet VALUES (
 INSERT INTO Tweet VALUES (
     'Photo-belle', 'Photot d''une belle artiste', 'image/jpeg', '16-10-2014', 
     Metadonnees('Y. Dupond', '33.43144133557529 - 34.453125', '03-04-2008'), Liens(Url('Chanson12'), Relation('réponse')));
+
+UPDATE Tweet t 
+SET t.metadonnees = Metadonnees(t.metadonnees.auteur, NULL, t.metadonnees.date_inscription) 
+WHERE t.url = 'Ma-photo1';
+--Modifier la geolocalisation en null des tweets ayant des Liens avec 'reponse' comme relation
+UPDATE Tweet t
+SET t.metadonnees.geolocalisation = NULL
+WHERE 'réponse' MEMBER OF t.liens.relation;
+
+UPDATE Tweet t 
+SET t.metadonnees.geolocalisation = NULL
+WHERE 
+
+SELECT t.metadonnees.geolocalisation
+FROM Tweet t
+WHERE 'reponse' MEMBER OF t.liens.relation;
+
+SELECT t.uri, t.metadonnees.geolocalisation
+FROM Tweet t, TABLE(t.liens.url) l
+WHERE l.relation = 'reponse';
+
+
+SELECT t.uri
+FROM Tweet t, TABLE(t.liens) l 
+
+
+
