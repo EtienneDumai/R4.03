@@ -55,3 +55,41 @@ SELECT v.nom_ville, (v.rectangle.max.y)- (v.rectangle.min.y) AS longY,
 SELECT v.nom_ville
 FROM VILLE v
 WHERE (v.rectangle.max.y)- (v.rectangle.min.y) > 10 OR (v.rectangle.max.x)- (v.rectangle.min.x) > 10;
+
+
+--
+--PARTIE 2 :
+--
+
+--QUESTION 1 :
+CREATE OR REPLACE TYPE Metadonnees AS OBJECT (
+    auteur VARCHAR2(50),
+    geolocalisation VARCHAR2(100),
+    date_inscription DATE
+);
+CREATE OR REPLACE TYPE Url AS TABLE(
+    url VARCHAR2(100)
+);
+CREATE OR REPLACE TYPE Relation AS TABLE(
+    nom_relation VARCHAR2(50),
+);
+CREATE OR REPLACE TYPE Liens AS OBJECT(
+    url Url,
+    relation Relation
+);
+
+CREATE TABLE Tweet (
+    url VARCHAR2(100),
+    texte VARCHAR2(1000),
+    objet_mime VARCHAR2(50),
+    date_creation DATE,
+    metadonnees Metadonnees,
+    liens Liens);
+
+INSERT INTO Tweet VALUES (
+    'Ma-photo1', 'Photo prise lors d''une soirée avec les amis', 'image/jpeg', '12-05-2009', 
+    Metadonnees('X. Tintin', '43.834526782236814 - 0.3515625', '03-04-2008'), Liens(Url('Ma-photo2', 'Ma-photo12'), Relation('thème','réponse')));
+
+INSERT INTO Tweet VALUES (
+    'Photo-belle', 'Photot d''une belle artiste', 'image/jpeg', '16-10-2014', 
+    Metadonnees('Y. Dupond', '33.43144133557529 - 34.453125', '03-04-2008'), Liens(Url('Chanson12'), Relation('réponse')));
