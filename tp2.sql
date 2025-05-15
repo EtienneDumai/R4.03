@@ -265,3 +265,9 @@ WHERE a.NoArt = d.Art AND c.NoCmde = :nocmde;
 --Q4 REQ 2 :
 SELECT SUM(d.QteCmde) AS QteTotale
 FROM  Commande c, TABLE(c.Details) d;
+
+--Q4 REQ 3 :
+SELECT n.numero, n.NomClient
+FROM Client n, TABLE(n.Panier) p, Commande c, TABLE(c.Details) d
+JOIN Article a ON a.NoArt = d.Art
+WHERE a.Couleur = 'Rouge';
