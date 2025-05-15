@@ -1,4 +1,4 @@
-CREATE TABLE Categorie(
+CREATE OR REPLACE TYPE Categorie AS OBJECT(
     NoCat NUMBER,
     Libelle VARCHAR2(50)
 );
