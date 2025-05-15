@@ -270,4 +270,4 @@ FROM  Commande c, TABLE(c.Details) d;
 SELECT n.numero, n.NomClient
 FROM Client n, TABLE(n.Panier) p, Commande c, TABLE(c.Details) d
 JOIN Article a ON a.NoArt = d.Art
-WHERE a.Couleur = 'Rouge';
+WHERE a.Couleur = 'Rouge' AND p.Cmde = c.NoCmde;
