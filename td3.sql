@@ -149,12 +149,15 @@ HAVING nb_lien > 1;
 
 --TD3
 --QUESTION 1 :
+
+set serveroutput on;
 CREATE OR REPLACE TYPE t_Rect2 AS OBJECT (
     min B_Point,
     max B_Point,
     MEMBER PROCEDURE inserer2Points(newPoint IN B_Point, newPoint2 IN B_Point),
     MEMBER FUNCTION SURFACE RETURN NUMBER
-);
+    
+)NOT FINAL;
 CREATE OR REPLACE TYPE BODY t_Rect2 AS 
     MEMBER PROCEDURE inserer2Points(newPoint IN B_Point, newPoint2 IN B_Point) IS
     BEGIN
@@ -166,7 +169,7 @@ CREATE OR REPLACE TYPE BODY t_Rect2 AS
         RETURN ABS((self.max.x - self.min.x) * (self.max.y - self.min.y));
     END;
 END;
-
+DROP TABLE VILLE2;
 CREATE TABLE VILLE2 (
     id_ville NUMBER,
     nom_ville VARCHAR2(50),
@@ -185,10 +188,57 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('RECTANGLE INSERER : ' || v_rect.min.x || ' ' || v_rect.min.y || ' ' || v_rect.max.x || ' ' || v_rect.max.y);
     INSERT INTO VILLE2 VALUES (1, 'BAYONNE', v_rect);
     surface := v_rect.surface();
-    DBMS_OUTPUT.PUT_LINE('SURFACE : ' || surface);
+    DBMS_OUTPUT.PUT_LINE('SURFACE :' || surface);
     Commit;
 EXCEPTION 
     WHEN Empv THEN
         DBMS_OUTPUT.PUT_LINE('Erreur : ' || SQLERRM);
 END;
+
+--QUESTION 4 :
+CREATE OR REPLACE TYPE t_Carre UNDER t_Rect2 (
+  OVERRIDING MEMBER FUNCTION surface RETURN NUMBER
+);
+
+CREATE OR REPLACE TYPE BODY t_Carre AS
+  OVERRIDING MEMBER FUNCTION surface RETURN NUMBER IS
+  BEGIN
+    RETURN POWER(SELF.max.x - SELF.min.x, 2);
+  END surface;
+END;
+
+
+--Question 5 : 
+DECLARE
+  v_carre t_Carre;
+  v_min B_Point := B_Point(5, 5);
+  v_max B_Point := B_Point(9, 9);
+  surface NUMBER;
+BEGIN
+
+  v_carre := t_Carre(v_min, v_max);
+  
+
+  DBMS_OUTPUT.PUT_LINE('CARRE INSERER : ' || v_carre.min.x || ' ' || v_carre.min.y || ' ' || v_carre.max.x || ' ' || v_carre.max.y);
+  INSERT INTO VILLE2 VALUES (2, 'BIARRITZ', v_carre);
+  
+  COMMIT;
+END;
+
+--QUESTION 6 :
+DECLARE
+  v_rect t_Rect2; 
+  surface NUMBER;
+BEGIN
+
+  SELECT rectangle INTO v_rect
+  FROM VILLE2
+  WHERE nom_ville = 'BIARRITZ';
+
+
+  surface := v_rect.surface;
+
+  DBMS_OUTPUT.PUT_LINE('Surface de Biarritz : ' || surface);
+END;
+
 
